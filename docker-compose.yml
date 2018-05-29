@@ -1,0 +1,28 @@
+version: '2'
+services:
+  asterisk:
+  container_name: snep
+    image: snep
+    ports:
+     - 4569:4569
+     - 5004-5080:5004-5080/tcp
+     - 10000-20000:10000-20000/udp
+    volumes:
+     - snep_config:/etc/asterisk
+     - snep_data:/var/lib/asterisk
+     - snep_record:/var/spool/asterisk
+     - snep_logs:/var/log/asterisk
+    restart: always
+    networks:
+      - frontend
+      - backend
+networks:
+  frontend:
+    external:
+      name: frontend
+
+  backend:
+    external:
+      name: backend
+
+#network_mode: bridge
